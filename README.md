@@ -7,7 +7,7 @@ A spec-driven development framework for AI-assisted coding. Gives your AI coding
 Add speci5 to any project:
 
 ```bash
-npx speci5 init
+npx @atheneworkai/speci5 init
 ```
 
 This copies the skill definitions and config into your repo:
@@ -22,7 +22,7 @@ CLAUDE.md                          # Framework instructions for your AI agent
 To update to the latest version:
 
 ```bash
-npx speci5 update
+npx @atheneworkai/speci5 update
 ```
 
 ## Usage

@@ -12,6 +12,9 @@ What this feature is and why it matters.
 - Goal 1
 - Goal 2
 
+## Non-Goals
+- What this feature explicitly does NOT cover.
+
 ## Stories
 - [<story-title>](<story-slug>/)
 - [<story-title>](<story-slug>/)
@@ -31,4 +34,7 @@ As a <role>, I can <action> so that <benefit>.
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
+
+## Open Questions
+- Any unresolved questions that may affect implementation.
 ```
