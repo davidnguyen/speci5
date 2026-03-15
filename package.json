@@ -22,6 +22,9 @@
   ],
   "author": "David Nguyen",
   "license": "MIT",
+  "scripts": {
+    "pub": "npm publish --access=public"
+  },
   "engines": {
     "node": ">=18"
   }
