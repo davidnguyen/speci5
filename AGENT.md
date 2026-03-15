@@ -24,8 +24,7 @@ Each skill is a `/` slash command in Copilot Chat, defined in `.claude/skills/`.
 |-------|---------|---------|
 | Brainstorm | `/speci5.brainstorm` | Elaborate and expand user input into idea documents |
 | Specify | `/speci5.specify` | Transform ideas into features and stories |
-| Plan | `/speci5.plan` | Create implementation tasks from a story |
-| Check | `/speci5.check` | Verify source code against a story's plan |
+| Plan | `/speci5.plan` | Create implementation tasks from a story || Implement | `/speci5.implement` | Implement a story's tasks using worktree-isolated agents || Check | `/speci5.check` | Verify source code against a story's plan |
 
 ## Conventions
 

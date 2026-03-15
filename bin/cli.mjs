@@ -14,6 +14,7 @@ const HOME = osHomedir();
 const SKILLS = [
   'speci5.brainstorm',
   'speci5.check',
+  'speci5.implement',
   'speci5.plan',
   'speci5.specify',
 ];

@@ -1,6 +1,6 @@
 # speci5
 
-A spec-driven development framework for AI-assisted coding. Gives your AI coding agent a structured workflow: **brainstorm** → **specify** → **plan** → **check**.
+A spec-driven development framework for AI-assisted coding. Gives your AI coding agent a structured workflow: **brainstorm** → **specify** → **plan** → **implement** → **check**.
 
 ## Install
 
@@ -46,6 +46,7 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 | `/speci5.brainstorm` | Elaborate rough thoughts into structured idea documents |
 | `/speci5.specify` | Transform ideas into feature and story specs |
 | `/speci5.plan` | Create concrete implementation tasks from a story |
+| `/speci5.implement` | Implement a story's tasks using worktree-isolated agents |
 | `/speci5.check` | Verify code against a story's plan and update progress |
 
 ### Workflow
@@ -61,7 +62,9 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 3. /speci5.plan .spec/features/user-auth/oauth-login
    → writes .spec/features/user-auth/oauth-login/plan.md
 
-4. (implement the code)
+4. /speci5.implement .spec/features/user-auth/oauth-login
+   → implements tasks from plan.md, checks off completed tasks
+   → use --mode sub-agent for parallel implementation
 
 5. /speci5.check .spec/features/user-auth/oauth-login
    → updates plan.md checkboxes, reports progress
