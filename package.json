@@ -1,0 +1,27 @@
+{
+  "name": "speci5",
+  "version": "0.1.0",
+  "description": "Spec-driven development framework for AI-assisted coding",
+  "type": "module",
+  "bin": {
+    "speci5": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin/",
+    ".claude/skills/"
+  ],
+  "keywords": [
+    "spec",
+    "ai",
+    "copilot",
+    "claude",
+    "development",
+    "workflow",
+    "skills"
+  ],
+  "author": "David Nguyen",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
