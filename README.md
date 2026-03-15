@@ -10,13 +10,23 @@ Add speci5 to any project:
 npx @atheneworkai/speci5 init
 ```
 
-This copies the skill definitions and config into your repo:
+Or install skills at the user level (available across all projects):
+
+```bash
+npx @atheneworkai/speci5 init --user
+```
+
+Options:
+- `--user` — Install skills to `~/.claude/skills/` instead of the project's `.claude/skills/`
+- `--force` — Overwrite existing files without prompting
+
+This copies the skill definitions into your project (or home directory) and creates a `.speci5.config.yml` to remember your configuration:
 
 ```
-CLAUDE.md                          # Framework instructions for your AI agent
 .claude/skills/                    # Skill definitions (slash commands)
 .spec/ideas/                       # Your brainstormed ideas go here
 .spec/features/                    # Structured specs land here
+.speci5.config.yml                 # Remembers scope and version
 ```
 
 To update to the latest version:
@@ -24,6 +34,8 @@ To update to the latest version:
 ```bash
 npx @atheneworkai/speci5 update
 ```
+
+The `update` command reads `.speci5.config.yml` to determine where skills were installed, so you don't need to pass `--user` again.
 
 ## Usage
 
