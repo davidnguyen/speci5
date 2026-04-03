@@ -1,5 +1,5 @@
 ---
-name: speci5.plan
+name: speci5-plan
 description: "Read a story spec and create a concrete implementation plan with tasks in .spec/features/<feature>/<story>/plan.md. Analyzes the codebase to produce specific, actionable tasks with file paths, function names, and unit test coverage aligned to the project tech stack. WHEN: /plan, create plan, plan story, break down story, implementation tasks, plan implementation, what to build. DO NOT USE FOR: brainstorming ideas (use brainstorm), writing specs (use specify), checking implementation (use check)."
 argument-hint: "Path to the story folder, e.g. .spec/features/user-auth/login-with-email"
 ---

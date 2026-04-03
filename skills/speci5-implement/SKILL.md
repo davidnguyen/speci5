@@ -1,5 +1,5 @@
 ---
-name: speci5.implement
+name: speci5-implement
 description: "Implement a story's tasks and acceptance criteria from .spec/features/. Reads plan.md tasks and story.md acceptance criteria, then implements them using worktree isolation. Supports two modes: default (single agent, sequential) and sub-agent (parallel agents per task). WHEN: /implement, implement story, build story, execute plan, implement tasks, code the story, develop story, run implementation, implement feature. DO NOT USE FOR: brainstorming ideas (use brainstorm), writing specs (use specify), creating plans (use plan), checking implementation (use check)."
 argument-hint: "<path-to-story-folder> [--mode default|sub-agent]  e.g. .spec/features/user-auth/login-with-email --mode sub-agent"
 ---
@@ -39,13 +39,13 @@ Load these files from the story folder:
 - `story.md` — acceptance criteria and context
 - `plan.md` — ordered task checklist
 
-If `plan.md` doesn't exist, tell the user to run `/speci5.plan` first and stop.
+If `plan.md` doesn't exist, tell the user to run `/speci5-plan` first and stop.
 
 Extract:
 - The list of **unchecked tasks** from `plan.md` (`- [ ] ...`)
 - The **acceptance criteria** from `story.md`
 
-If all tasks are already checked, report that the story appears complete and offer to run `/speci5.check` to verify.
+If all tasks are already checked, report that the story appears complete and offer to run `/speci5-check` to verify.
 
 ### 2. Confirm before implementing
 
@@ -90,7 +90,7 @@ Implement all unchecked tasks in plan.md, satisfying the acceptance criteria in 
 3. Follow existing code conventions: check nearby files for naming patterns, import styles, test structure.
 4. After implementing all tasks, verify against each acceptance criterion in story.md. Do a quick sanity check — read the key files you wrote and confirm they address the criteria.
 5. Update plan.md: mark completed tasks as - [x].
-6. Commit all changes with message: "feat: implement <story-title>\n\nImplemented via speci5.implement"
+6. Commit all changes with message: "feat: implement <story-title>\n\nImplemented via speci5-implement"
 
 ## Constraints
 - Do NOT modify story.md or feature.md.
@@ -156,7 +156,7 @@ Tasks implemented: X/Y
 - ⚠️ Task description — reason
 
 ### Next step
-Run `/speci5.check .spec/features/<feature>/<story>` to verify the implementation against acceptance criteria.
+Run `/speci5-check .spec/features/<feature>/<story>` to verify the implementation against acceptance criteria.
 ```
 
 If in sub-agent mode, also note any merge conflicts that were resolved or left for the user.

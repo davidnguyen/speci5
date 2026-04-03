@@ -1,5 +1,5 @@
 ---
-name: speci5.specify
+name: speci5-spec
 description: "Transform idea documents from .spec/ideas/ into structured feature and story specs in .spec/features/. Creates feature.md and story.md files organized by feature folders and story subfolders. WHEN: /specify, write spec, create spec, turn idea into spec, specify feature, define stories, break down feature, structure requirements. DO NOT USE FOR: brainstorming ideas (use brainstorm), creating plans (use plan), checking implementation (use check)."
 argument-hint: "Name the idea(s) to specify, or leave blank to process all ideas"
 ---

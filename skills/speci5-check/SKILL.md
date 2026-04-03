@@ -1,5 +1,5 @@
 ---
-name: speci5.check
+name: speci5-check
 description: "Verify implementation progress by inspecting source code against a story's plan. Reads plan.md tasks, searches the codebase for evidence of completion, and toggles task checkboxes. WHEN: /check, check progress, verify implementation, check story, are tasks done, update plan status, check plan. DO NOT USE FOR: brainstorming ideas (use brainstorm), writing specs (use specify), creating plans (use plan)."
 argument-hint: "Path to the story folder, e.g. .spec/features/user-auth/login-with-email"
 ---

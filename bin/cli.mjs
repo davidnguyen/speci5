@@ -12,11 +12,11 @@ const CWD = process.cwd();
 const HOME = osHomedir();
 
 const SKILLS = [
-  'speci5.brainstorm',
-  'speci5.check',
-  'speci5.implement',
-  'speci5.plan',
-  'speci5.specify',
+  'speci5-brainstorm',
+  'speci5-check',
+  'speci5-implement',
+  'speci5-plan',
+  'speci5-spec',
 ];
 
 const command = process.argv[2];

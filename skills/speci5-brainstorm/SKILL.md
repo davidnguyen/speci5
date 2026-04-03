@@ -1,5 +1,5 @@
 ---
-name: speci5.brainstorm
+name: speci5-brainstorm
 description: "Elaborate and expand user input into structured idea documents in .spec/ideas/. Takes rough thoughts, researches patterns, surfaces trade-offs and open questions. WHEN: /brainstorm, brainstorm idea, new idea, capture idea, explore concept, elaborate on, think about, research idea. DO NOT USE FOR: writing specs (use specify), creating plans (use plan), checking implementation (use check)."
 argument-hint: "Describe the idea or concept you want to brainstorm"
 ---

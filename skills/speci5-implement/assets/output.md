@@ -20,7 +20,7 @@ Tasks implemented: X/Y
 - ⚠️ <criterion> — <what still needs attention>
 
 ### Next step
-Run `/speci5.check .spec/features/<feature>/<story>` to verify.
+Run `/speci5-check .spec/features/<feature>/<story>` to verify.
 ```
 
 **In sub-agent mode**, add a merge section if relevant:
