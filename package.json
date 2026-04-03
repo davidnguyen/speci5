@@ -23,6 +23,7 @@
   "author": "David Nguyen",
   "license": "MIT",
   "scripts": {
+    "test": "node --test bin/lib.test.mjs",
     "npm-up-patch": "npm version patch",
     "npm-up-minor": "npm version minor",
     "npm-up-major": "npm version major",

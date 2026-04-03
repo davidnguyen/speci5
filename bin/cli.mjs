@@ -1,190 +1,37 @@
 #!/usr/bin/env node
 
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, join } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createInterface } from 'node:readline';
 import { homedir as osHomedir } from 'node:os';
+import { printUsage, init, update } from './lib.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PKG_ROOT = resolve(__dirname, '..');
 const CWD = process.cwd();
 const HOME = osHomedir();
 
-const SKILLS = [
-  'speci5-brainstorm',
-  'speci5-check',
-  'speci5-implement',
-  'speci5-plan',
-  'speci5-spec',
-];
-
 const command = process.argv[2];
 const force = process.argv.includes('--force');
 const userLevel = process.argv.includes('--user');
 
+const ctx = { PKG_ROOT, CWD, HOME, force, userLevel };
+
 async function main() {
   switch (command) {
     case 'init':
-      await init();
+      await init(ctx);
       break;
     case 'update':
-      await update();
+      await update(ctx);
       break;
     default:
-      printUsage();
+      printUsage(ctx);
       break;
   }
-}
-
-function printUsage() {
-  const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
-  console.log(`
-speci5 v${pkg.version} — Spec-Driven Development Framework
-
-Usage: npx speci5 <command>
-
-Commands:
-  init     Install speci5 skills and config into the current project
-  update   Update existing speci5 installation to latest version
-
-Options:
-  --user   Install skills at user level (~/.claude/skills) instead of project level
-  --force  Overwrite existing files without prompting
-`);
-}
-
-async function init() {
-  const scope = userLevel ? 'user' : 'project';
-  const destBase = userLevel ? HOME : CWD;
-  const label = userLevel ? '~/.claude/skills' : '.claude/skills';
-
-  console.log(`\nspeci5 — Installing skills at ${scope} level (${label})\n`);
-
-  const skillsDir = join(destBase, '.claude', 'skills');
-  const existing = SKILLS.filter(s => existsSync(join(skillsDir, s)));
-
-  if (existing.length > 0 && !force) {
-    console.log('Found existing skills:');
-    existing.forEach(s => console.log(`  ${label}/${s}/`));
-
-    const answer = await confirm('\nOverwrite? (y/N) ');
-    if (!answer) {
-      console.log('Aborted.\n');
-      process.exit(0);
-    }
-  }
-
-  copyFiles(destBase, label);
-
-  if (!userLevel) {
-    createSpecDir();
-  }
-
-  const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
-  writeConfig({ version: pkg.version, scope });
-
-  console.log(`
-Done! speci5 installed at ${scope} level.
-
-Next steps:
-  1. Skills are available as /slash commands in Copilot Chat
-  2. Start with: /speci5.brainstorm to capture an idea
-  3. Then: /speci5.specify -> /speci5.plan -> /speci5.check
-`);
-}
-
-async function update() {
-  const config = readConfig();
-  const scope = userLevel ? 'user' : (config.scope || 'project');
-  const destBase = scope === 'user' ? HOME : CWD;
-  const label = scope === 'user' ? '~/.claude/skills' : '.claude/skills';
-
-  console.log(`\nspeci5 — Updating ${scope}-level skills\n`);
-
-  if (force) {
-    deleteExistingSkills(destBase, label);
-  }
-
-  copyFiles(destBase, label);
-
-  const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
-  writeConfig({ version: pkg.version, scope });
-
-  console.log('\nDone! speci5 updated successfully.\n');
-}
-
-function readConfig() {
-  const configPath = join(CWD, '.speci5.config.yml');
-  if (!existsSync(configPath)) return {};
-  const content = readFileSync(configPath, 'utf8');
-  const config = {};
-  for (const line of content.split('\n')) {
-    const match = line.match(/^(\w+):\s*"?([^"]+)"?\s*$/);
-    if (match) config[match[1]] = match[2];
-  }
-  return config;
-}
-
-function deleteExistingSkills(destBase, label) {
-  const skillsDir = join(destBase, '.claude', 'skills');
-  if (!existsSync(skillsDir)) return;
-  const entries = readdirSync(skillsDir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (entry.isDirectory() && entry.name.startsWith('speci5')) {
-      rmSync(join(skillsDir, entry.name), { recursive: true, force: true });
-      console.log(`  Deleted ${label}/${entry.name}/`);
-    }
-  }
-}
-
-function copyFiles(destBase, label) {
-  for (const skill of SKILLS) {
-    const skillSrc = join(PKG_ROOT, 'skills', skill);
-    const skillDest = join(destBase, '.claude', 'skills', skill);
-    mkdirSync(skillDest, { recursive: true });
-    cpSync(skillSrc, skillDest, { recursive: true });
-    console.log(`  ${label}/${skill}/`);
-  }
-}
-
-function createSpecDir() {
-  const specDir = join(CWD, '.spec', 'ideas');
-  if (!existsSync(specDir)) {
-    mkdirSync(specDir, { recursive: true });
-    console.log('  .spec/ideas/');
-  }
-  const featuresDir = join(CWD, '.spec', 'features');
-  if (!existsSync(featuresDir)) {
-    mkdirSync(featuresDir, { recursive: true });
-    console.log('  .spec/features/');
-  }
-}
-
-function writeConfig({ version, scope }) {
-  const configPath = join(CWD, '.speci5.config.yml');
-  const lines = [
-    `# speci5 configuration`,
-    `# Generated by speci5 init — edit freely`,
-    ``,
-    `version: "${version}"`,
-    `scope: ${scope}`,
-  ];
-  writeFileSync(configPath, lines.join('\n') + '\n');
-  console.log('  .speci5.config.yml');
-}
-
-function confirm(prompt) {
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
-  return new Promise(resolve => {
-    rl.question(prompt, answer => {
-      rl.close();
-      resolve(answer.toLowerCase() === 'y');
-    });
-  });
 }
 
 main().catch(err => {
   console.error(`Error: ${err.message}`);
   process.exit(1);
 });
+
