@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createInterface } from 'node:readline';
@@ -101,6 +101,11 @@ async function update() {
   const label = scope === 'user' ? '~/.claude/skills' : '.claude/skills';
 
   console.log(`\nspeci5 — Updating ${scope}-level skills\n`);
+
+  if (force) {
+    deleteExistingSkills(destBase, label);
+  }
+
   copyFiles(destBase, label);
 
   const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
@@ -119,6 +124,18 @@ function readConfig() {
     if (match) config[match[1]] = match[2];
   }
   return config;
+}
+
+function deleteExistingSkills(destBase, label) {
+  const skillsDir = join(destBase, '.claude', 'skills');
+  if (!existsSync(skillsDir)) return;
+  const entries = readdirSync(skillsDir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (entry.isDirectory() && entry.name.startsWith('speci5')) {
+      rmSync(join(skillsDir, entry.name), { recursive: true, force: true });
+      console.log(`  Deleted ${label}/${entry.name}/`);
+    }
+  }
 }
 
 function copyFiles(destBase, label) {
