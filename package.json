@@ -1,6 +1,6 @@
 {
   "name": "@atheneworkai/speci5",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Spec-driven development framework for AI-assisted coding",
   "type": "module",
   "bin": {
