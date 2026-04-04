@@ -1,4 +1,4 @@
-Write to `.spec/design-systems/<slug>/DESIGN.md` using this structure:
+Write to `.spec/design-systems/<design>/DESIGN.md` using this structure:
 
 ```markdown
 # <Design System Name>

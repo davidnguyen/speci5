@@ -25,6 +25,7 @@ This copies the skill definitions into your project (or home directory) and crea
 ```
 .claude/skills/              # Skill definitions (slash commands)
 .spec/PRD.<domain>.md        # Domain PRD (one per domain, created by /speci5-init)
+.spec/design-systems/        # Design system definitions (created by /speci5-design)
 .spec/features/              # Structured specs land here
 .speci5.config.yml           # Remembers scope and version
 ```
@@ -45,6 +46,7 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 |---------|-------------|
 | `/speci5-init` | Create a `PRD.<domain>.md` for a new product or domain via guided interview |
 | `/speci5-brainstorm` | Add, change, or remove features in an existing domain PRD |
+| `/speci5-design` | Create or update design systems in `.spec/design-systems/` |
 | `/speci5-spec` | Transform PRD features into feature and story specs |
 | `/speci5-plan` | Create concrete implementation tasks from a story |
 | `/speci5-implement` | Implement a story's tasks using worktree-isolated agents |
@@ -61,18 +63,22 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 2. /speci5-brainstorm "user authentication with OAuth"
    → updates .spec/PRD.<domain>.md with the new feature
 
-3. /speci5-spec
+3. /speci5-design "minimal light theme"
+   → writes .spec/design-systems/minimal-light/DESIGN.md
+   → selected automatically during /speci5-init if design systems exist
+
+4. /speci5-spec
    → writes .spec/features/user-auth/feature.md
    → writes .spec/features/user-auth/oauth-login/story.md
 
-4. /speci5-plan .spec/features/user-auth/oauth-login
+5. /speci5-plan .spec/features/user-auth/oauth-login
    → writes .spec/features/user-auth/oauth-login/plan.md
 
-5. /speci5-implement .spec/features/user-auth/oauth-login
+6. /speci5-implement .spec/features/user-auth/oauth-login
    → implements tasks from plan.md, checks off completed tasks
    → use --mode sub-agent for parallel implementation
 
-6. /speci5-check .spec/features/user-auth/oauth-login
+7. /speci5-check .spec/features/user-auth/oauth-login
    → updates plan.md checkboxes, reports progress
 ```
 
@@ -80,7 +86,7 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 
 Speci5 is a set of AI coding skills that enforce a spec-driven workflow. Instead of jumping straight to code, you capture ideas, break them into features and stories with acceptance criteria, then create concrete implementation plans — all tracked in `.spec/` alongside your code.
 
-See [CLAUDE.md](CLAUDE.md) for the full framework reference.
+See [AGENT.md](AGENT.md) for the full framework reference.
 
 ## License
 

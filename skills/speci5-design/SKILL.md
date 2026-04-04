@@ -12,7 +12,7 @@ A design system file is a plain-markdown specification of visual design tokens a
 
 <HARD-GATE>
 This skill has exactly ONE output location:
-- `.spec/design-systems/<slug>/DESIGN.md` — created or updated
+- `.spec/design-systems/<design>/DESIGN.md` — created or updated
 
 Do NOT create feature files, story files, plans, or code. Do NOT modify files outside `.spec/design-systems/`. Do NOT delete files.
 </HARD-GATE>
@@ -52,13 +52,13 @@ Activate this skill when the user wants to:
 1. **Read PRD context** — scan `.spec/` for any `PRD.*.md` files and read them. Use the product name, target audience, goals, and constraints to inform the visual direction and naming of the design system.
 2. **Check for duplicates** — scan `.spec/design-systems/` to ensure no file with the same name already exists. If one does, suggest updating it instead.
 3. **Gather context** — if the user hasn't specified, ask one question: "What's the visual style of this design system — e.g. minimal and light, bold and dark, playful, corporate?" Use that to inform defaults. If the project has existing code or a framework in use (e.g. Tailwind, shadcn), scan for color variables, font imports, or component patterns to seed the design system with real values.
-4. **Write the file** — create `.spec/design-systems/<slug>/DESIGN.md` using the [output template](./assets/output.md). Fill every section with concrete values. Do not leave placeholder sections empty — infer sensible defaults if values are not specified.
+4. **Write the file** — create `.spec/design-systems/<design>/DESIGN.md` using the [output template](./assets/output.md). Fill every section with concrete values. Do not leave placeholder sections empty — infer sensible defaults if values are not specified.
 5. **Present** — show the created file path and a summary of what was written.
 
 ### Update
 
 1. **Read PRD context** — scan `.spec/` for any `PRD.*.md` files and read them. Use the product context to validate that proposed changes remain consistent with the product's goals and audience.
-2. **Identify the file** — if the user named the design system, find `.spec/design-systems/<slug>/DESIGN.md`. If ambiguous, list matching files and ask.
+2. **Identify the file** — if the user named the design system, find `.spec/design-systems/<design>/DESIGN.md`. If ambiguous, list matching files and ask.
 3. **Read the current file** — load its full contents before making any changes.
 4. **Apply the changes** — modify only the sections the user asked to change. Preserve all other content exactly.
 5. **Present a diff summary** — describe what changed (e.g., "Updated primary color from `#3B82F6` to `#6366F1`, added `Danger` semantic color").
