@@ -27,7 +27,7 @@
     "npm-up-patch": "npm version patch",
     "npm-up-minor": "npm version minor",
     "npm-up-major": "npm version major",
-    "npm-publish": "npm publish --access=public"
+    "npm-publish": "npm whoami 2>/dev/null || npm login && npm publish --access=public"
   },
   "engines": {
     "node": ">=18"
