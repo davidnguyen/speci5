@@ -1,6 +1,6 @@
 # speci5
 
-A spec-driven development framework for AI-assisted coding. Gives your AI coding agent a structured workflow: **brainstorm** → **specify** → **plan** → **implement** → **check**.
+A spec-driven development framework for AI-assisted coding. Gives your AI coding agent a structured workflow: **init** → **brainstorm** → **specify** → **plan** → **implement** → **check**.
 
 ## Install
 
@@ -23,10 +23,10 @@ Options:
 This copies the skill definitions into your project (or home directory) and creates a `.speci5.config.yml` to remember your configuration:
 
 ```
-.claude/skills/                    # Skill definitions (slash commands)
-.spec/ideas/                       # Your brainstormed ideas go here
-.spec/features/                    # Structured specs land here
-.speci5.config.yml                 # Remembers scope and version
+.claude/skills/              # Skill definitions (slash commands)
+.spec/PRD.<domain>.md        # Domain PRD (one per domain, created by /speci5-init)
+.spec/features/              # Structured specs land here
+.speci5.config.yml           # Remembers scope and version
 ```
 
 To update to the latest version:
@@ -43,8 +43,9 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 
 | Command | What it does |
 |---------|-------------|
-| `/speci5-brainstorm` | Elaborate rough thoughts into structured idea documents |
-| `/speci5-spec` | Transform ideas into feature and story specs |
+| `/speci5-init` | Create a `PRD.<domain>.md` for a new product or domain via guided interview |
+| `/speci5-brainstorm` | Add, change, or remove features in an existing domain PRD |
+| `/speci5-spec` | Transform PRD features into feature and story specs |
 | `/speci5-plan` | Create concrete implementation tasks from a story |
 | `/speci5-implement` | Implement a story's tasks using worktree-isolated agents |
 | `/speci5-check` | Verify code against a story's plan and update progress |
@@ -52,21 +53,26 @@ Once installed, the skills are available as `/slash` commands in Copilot Chat:
 ### Workflow
 
 ```
-1. /speci5-brainstorm "user authentication with OAuth"
-   → writes .spec/ideas/user-auth-oauth.md
+1. /speci5-init
+   → interview to capture domain name, audience, goals
+   → writes .spec/PRD.<domain>.md
+   → run again to add a second domain (e.g. PRD.admin.md, PRD.api.md)
 
-2. /speci5-spec
+2. /speci5-brainstorm "user authentication with OAuth"
+   → updates .spec/PRD.<domain>.md with the new feature
+
+3. /speci5-spec
    → writes .spec/features/user-auth/feature.md
    → writes .spec/features/user-auth/oauth-login/story.md
 
-3. /speci5-plan .spec/features/user-auth/oauth-login
+4. /speci5-plan .spec/features/user-auth/oauth-login
    → writes .spec/features/user-auth/oauth-login/plan.md
 
-4. /speci5-implement .spec/features/user-auth/oauth-login
+5. /speci5-implement .spec/features/user-auth/oauth-login
    → implements tasks from plan.md, checks off completed tasks
    → use --mode sub-agent for parallel implementation
 
-5. /speci5-check .spec/features/user-auth/oauth-login
+6. /speci5-check .spec/features/user-auth/oauth-login
    → updates plan.md checkboxes, reports progress
 ```
 
