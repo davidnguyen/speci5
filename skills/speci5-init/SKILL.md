@@ -68,17 +68,28 @@ Confirm the domain with the user if it's not obvious.
 
 Summarise the gathered answers as a preview of the PRD. Ask the user to confirm or correct before writing.
 
-### Step 5: Write the PRD
+### Step 5: Select Design System
+
+Scan `.spec/design-systems/` for subdirectories that contain a `DESIGN.md` file.
+
+- **If design systems found**: Present a numbered list with each folder name and a one-line description from its `DESIGN.md`. Ask: _"Which design system should this product use?"_ Accept a number, a slug name, or "none". Record the selected slug.
+- **If no design systems found**: Skip selection and proceed to Step 6. After presenting the PRD in Step 7, suggest using `/speci5-design` to create one.
+
+### Step 6: Write the PRD
 
 Write `.spec/PRD.<domain>.md` using the [PRD template](./assets/prd.md).
 
-Leave the `Features` section empty or with a single placeholder — features are added through brainstorming, not during initialisation.
+Leave the `Features` section empty or with a single placeholder — features are added through brainstorming, not during initialisation. Fill the `Design System` section with the slug selected in Step 5, or leave it blank if no design system was found or chosen.
 
-### Step 6: Present
+### Step 7: Present
 
 Show the created file path and content. Then suggest the next step:
 
 > Your PRD is ready. Use `/speci5-brainstorm` to start exploring features.
+
+If no design system was found or selected in Step 5, also suggest:
+
+> No design system is linked yet. Use `/speci5-design` to create one, then update the **Design System** section in your PRD.
 
 ## Output Format
 
